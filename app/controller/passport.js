@@ -31,11 +31,11 @@ module.exports = (passport)=> {
                 }
                 if (user) {
                     console.log('user: ' + user);
-                    if(user.validPassword(password, user.password)) {
-                        return done(null, user);
-                    } else {
+                    if(!user.validPassword(password, user.password)) {
                         console.log('invalid password');
                         return done(null, false);
+                    } else {
+                        return done(null, user);
                     }
                 }
             });
@@ -92,7 +92,8 @@ module.exports = (passport)=> {
             console.log("user not authenticated");
             res.redirect('/')
         }
-    },
+    };
+
     logoutUser = (req, res, next)=> {
         if(req.isAuthenticated()){
             console.log('logged out successfully')
@@ -101,5 +102,5 @@ module.exports = (passport)=> {
         } else {
             next();
         }
-    }
+    };
 }
