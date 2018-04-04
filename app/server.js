@@ -49,7 +49,7 @@ app.listen(port, (err)=> {
         console.log(`app listening on port ${port}!`);
         mongoose.connect('mongodb://localhost/login-v6', function(error) {
             if(error) {
-                console.log('the connection broke');
+                return console.log('the connection broke');
             } else {
                 console.log('mongoose connection successful');
             }

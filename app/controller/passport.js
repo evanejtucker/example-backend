@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/users');
+// const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (passport)=> {
     passport.serializeUser(function(user, done) {
@@ -19,9 +20,9 @@ module.exports = (passport)=> {
             passReqToCallback: true
         },
         function(req, username, password, done) {
-        console.log(req.body);
-        console.log('username: ' + username);
-        console.log('password:' + password);
+            console.log(req.body);
+            console.log('username: ' + username);
+            console.log('password: ' + password);
             User.findOne({ username: username }, function(err, user) {
                 if (err) { return done(err); }
                 if (!user) {
@@ -32,6 +33,7 @@ module.exports = (passport)=> {
                     if(user.validPassword(password, user.password)) {
                         return done(null, user);
                     } else {
+                        console.log('invalid password');
                         return done(null, false);
                     }
                 }
@@ -51,12 +53,12 @@ module.exports = (passport)=> {
             User.findOne({username: username}, function(err, user) {
                 if (err) {
                     console.log('something went wrong');
-                    return (done, null);
+                    return done(null, false);
                 }
                 if (user) {
                     console.log(user);
                     console.log('that user already exists');
-                    return (done, null);
+                    return done(null, false);
                 }
                 else {
                     let info = req.body;
@@ -74,7 +76,7 @@ module.exports = (passport)=> {
                         if (error) {
                             console.log(error);
                         }
-                        return done (null, user);
+                        return done(null, user);
                     });
                 }
             });
