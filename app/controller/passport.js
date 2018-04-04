@@ -30,6 +30,7 @@ module.exports = (passport)=> {
                     return done(null, false);
                 }
                 if (user) {
+                    console.log('user: ' + user);
                     if(user.validPassword(password, user.password)) {
                         return done(null, user);
                     } else {
@@ -76,7 +77,7 @@ module.exports = (passport)=> {
                         if (error) {
                             console.log(error);
                         }
-                        return done(null, user);
+                        return done(null, newUser);
                     });
                 }
             });
