@@ -8,7 +8,7 @@ module.exports = (app, passport)=> {
         console.log(req.params.user);
         res.end('get request sent: /api/user/:user');
     });
-    app.post('api/user/login', passport.authenticate('local-login', {
+    app.post('/api/user/login', passport.authenticate('local-login', {
         successRedirect : '/success', 
         failureRedirect : '/failure',
         failureFlash : true
