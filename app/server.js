@@ -34,10 +34,6 @@ app.get('/', (req, res, next)=> {
     res.sendFile('./index.html');
 });
 
-app.get('/success', (req, res, next)=> {
-    res.send('success');
-});
-
 app.get('/failure', (req, res, next)=> {
     res.send('failure');
 });
