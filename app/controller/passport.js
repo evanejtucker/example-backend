@@ -64,7 +64,7 @@ module.exports = (passport)=> {
                         email: info.email,
                         admin: false
                     });
-                    newUser.password = newUser.generateHash(info.confirmPassword);
+                    newUser.password = newUser.generateHash(info.password);
                     newUser.save((error)=> {
                         if (error) {
                             console.log(error);

@@ -42,11 +42,13 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.generateHash = (password)=> {
+    console.log(password);
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
   
 userSchema.methods.validPassword = (password, encrypted)=> {
     console.log(`password: ${password}, encrypted: ${encrypted}`);
+    // console.log(bcrypt.compareSync("test", bcrypt.hashSync("test", bcrypt.genSaltSync(10))));
     return bcrypt.compareSync(password, encrypted);
     // this is always returning false, and I cant figure out why
 };
