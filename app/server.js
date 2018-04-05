@@ -36,7 +36,7 @@ app.get('/', (req, res, next)=> {
 });
 
 app.get('/failure', (req, res, next)=> {
-    res.send('failure');
+    res.send('something went wrong trying to log in :( ');
 });
 
 app.listen(port, (err)=> {
