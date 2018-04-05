@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+require('./controller/passport')(passport);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
@@ -26,8 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-require('./controller/passport')(passport);
-require('./routes/products-api')(app);
+// require('./routes/products-api')(app);
 require('./routes/users-api')(app, passport);
 
 app.get('/', (req, res, next)=> {

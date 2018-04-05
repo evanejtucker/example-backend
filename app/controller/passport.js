@@ -27,11 +27,11 @@ module.exports = (passport)=> {
                 }
                 if (user) {
                     console.log('user: ' + user);
-                    if(!user.validPassword(password, user.password)) {
+                    if(user.validPassword(password, user.password)) {
+                        return done(null, user);
+                    } else {
                         console.log('invalid password');
                         return done(null, false);
-                    } else {
-                        return done(null, user);
                     }
                 }
             });

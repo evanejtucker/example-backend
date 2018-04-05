@@ -42,13 +42,23 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.generateHash = (password)=> {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(7));
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
   
 userSchema.methods.validPassword = (password, encrypted)=> {
-    console.log('password: ' + password);
-    console.log('encrypted: ' + encrypted);
-    return bcrypt.compareSync(password, encrypted);
+    console.log(`password: ${password}, encrypted: ${encrypted}`);
+    // return bcrypt.compareSync(password, encrypted);
+
+    bcrypt.compare(password, encrypted, (error, result)=>{
+        console.log('error: ' + error);
+        console.log('result: ' + result);
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+    // this is always returning false, and I cant figure out why
 };
 
 const User = mongoose.model("User", userSchema);
