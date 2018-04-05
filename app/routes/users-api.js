@@ -10,18 +10,22 @@ module.exports = (app, passport)=> {
         res.end('get request sent: /api/user/:user');
     });
 
-    app.get('/api/profile', isLoggedIn, (req, res, next)=> {
+    app.get('/api/user/profile', isLoggedIn, (req, res, next)=> {
         res.send(req.user);
     });
 
+    app.get('/api/user/logout', logoutUser, (req, res, next)=> {
+        res.send('logged out successfully');
+    });
+
     app.post('/api/user/login', passport.authenticate('local-login', {
-        successRedirect : '/api/profile', 
+        successRedirect : '/api/user/profile', 
         failureRedirect : '/failure',
         failureFlash : true
     }));
 
     app.post('/api/user/signup', passport.authenticate('local-signup', {
-        successRedirect : '/api/profile', 
+        successRedirect : '/api/user/profile', 
         failureRedirect : '/failure', 
         failureFlash : true 
     }));
