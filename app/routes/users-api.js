@@ -1,4 +1,5 @@
 require('../models/users');
+const userController = require('../controller/userController');
 
 module.exports = (app, passport)=> {
 
@@ -22,5 +23,14 @@ module.exports = (app, passport)=> {
         failureRedirect : '/failure', 
         failureFlash : true 
     }));
+
+    app.get('/api/users/all', (req, res, next)=> {
+        userController.findAll(req, res);
+        let test = userController.findOne(req, res);
+        if (test) {
+            console.log(test);
+        }
+    });
+
 
 }
