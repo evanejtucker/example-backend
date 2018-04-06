@@ -3,33 +3,36 @@ const userController = require('../controller/userController');
 
 module.exports = (app, passport)=> {
 
-    app.get('/api/user/profile', isLoggedIn, (req, res, next)=> {
+    app.get('/api/users/profile', isLoggedIn, (req, res, next)=> {
         console.log('logged in successfully');
         res.send(req.user);
     });
 
-    app.get('/api/user/logout', logoutUser, (req, res, next)=> {
+    app.get('/api/users/logout', logoutUser, (req, res, next)=> {
         res.send('logged out successfully');
     });
 
-    app.post('/api/user/login', passport.authenticate('local-login', {
-        successRedirect : '/api/user/profile', 
+    app.post('/api/users/login', passport.authenticate('local-login', {
+        successRedirect : '/api/users/profile', 
         failureRedirect : '/failure',
         failureFlash : true
     }));
 
-    app.post('/api/user/signup', passport.authenticate('local-signup', {
-        successRedirect : '/api/user/profile', 
+    app.post('/api/users/signup', passport.authenticate('local-signup', {
+        successRedirect : '/api/users/profile', 
         failureRedirect : '/failure', 
         failureFlash : true 
     }));
 
     app.get('/api/users/all', (req, res, next)=> {
+
         userController.findAll(req, res);
-        let test = userController.findOne(req, res);
-        if (test) {
-            console.log(test);
-        }
+
+        // let test = userController.findOne(req, res);
+        // if (test) {
+        //     console.log(test);
+        // }
+        // res.send('testing');
     });
 
 
