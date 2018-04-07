@@ -25,15 +25,16 @@ module.exports = (app, passport)=> {
     }));
 
     app.get('/api/users/all', (req, res, next)=> {
-
         userController.findAll(req, res);
-
-        // let test = userController.findOne(req, res);
-        // if (test) {
-        //     console.log(test);
-        // }
-        // res.send('testing');
     });
 
+    app.get('/api/users/user/:user', (req, res, next)=> {
+        userController.findOne(req, res);
+    });
+
+    app.get('/api/users/remove/:user', (req, res, next)=> {
+        userController.removeOne(req, res);
+        res.send('user was successfully removed');
+    });
 
 }
